@@ -1,0 +1,47 @@
+1.restful api for company
+2.view -- angular for person
+
+database:
+1.providers-company
+  (1).companyName, companyAddress, companyPhone, companyDescription, companyCatetory, sub:staff
+  (2).staff: Name, post, email, phone, level, description, sub:workTime
+  (3).weekday, startHour, startMinute, endHour, endMinute
+
+2.providers-person
+  (1).name, job, email, phone, description, sub:workTime
+  (2).weekday, startHour, startMinute, endHour, endMinute
+
+3.customers
+  (1).firstName, lastName, email, phone
+
+4.schedule
+  (1).year, month, date, hour, minute, provider, customer
+
+  
+
+1.providers
+  (1).two roles of providers (person/company)
+  (2).register page
+  (3).for group(api)
+    [1].have a manager account, can arrange staff's schedule
+    [2].can manage staff's account.(get/create/update/delete)
+    [3].can check all schedule
+    [4].arrange all schedule(create/update/delete)
+    [5].manage company info
+  (4).for person(api/angular)
+    [1].provide their schedule
+    [2].change their schedule
+    [3].delete thier schedule
+    [4].check their schedule
+    [5].check all appointment
+    [6].change and delete appointments. have to send comfirm message to customers.
+    [7].check their own info
+    [8].update their own info
+    [9].delete their account
+
+ 2.customers
+   (1).get all free workers' schedule
+   (2).book an appointment, have to pay deposit
+   (3).delete an appointment. will have to talk to provider so provider can refund deposit
+   (4).manage personal info (get/create/update/delete)
+   (5).check own schedule. 
