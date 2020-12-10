@@ -26,7 +26,7 @@ const commentSchema = new mongoose.Schema({
 
 // email is account
 
-const indeworkersSchema = new mongoose.Schema({
+const workersSchema = new mongoose.Schema({
     firstName: {
         type: String,
         required: true,
@@ -42,6 +42,10 @@ const indeworkersSchema = new mongoose.Schema({
         required: true,
         min: 6,
         max: 10
+    },
+    gourpId: {
+        type: ObjectId,
+        required: false
     },
     description: {
         type: String,
@@ -66,4 +70,4 @@ const indeworkersSchema = new mongoose.Schema({
     comments: [ commentSchema ]
 });
 
-const indeworkers = mongoose.model('indeworkers', indeworkersSchema);
+const workers = mongoose.model('workers', workersSchema);

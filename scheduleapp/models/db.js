@@ -15,5 +15,7 @@ mongoose.connection.on('disconnected', () => {
 
 require('./groups');
 require('./customers');
-require('./indeworkers');
+require('./workers');
 require('./timetables');
+require('./appointments');
+require('./categories');
