@@ -1,5 +1,28 @@
 const mongoose = require('mongoose');
 
+const commentSchema = new mongoose.Schema({
+	customerId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    },
+	content : {
+		type : String,
+		required : true
+	},
+	rating : {
+		type : Number,
+		required : true,
+		'default' : 0,
+		min : 0,
+		max : 5
+	},
+	date : {
+		type : Date,
+		required : true,
+		'default' : Date.now
+	}
+});
+
 const groupsSchema = new mongoose.Schema({
     CompanyName: {
         type: String,

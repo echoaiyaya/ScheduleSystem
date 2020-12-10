@@ -37,7 +37,7 @@ const timeSchema = new mongoose.Schema({
 
 const timeTableSchema = new mongoose.Schema({
     workerId: {
-        type: ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
     },
     year: {
