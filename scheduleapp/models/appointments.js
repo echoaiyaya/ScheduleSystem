@@ -9,7 +9,7 @@ const appointmentsSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
-    gourpId: {
+    groupId: {
         type: mongoose.Schema.Types.ObjectId,
         required: false
     },
