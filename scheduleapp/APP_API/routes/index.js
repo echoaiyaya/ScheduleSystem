@@ -1,5 +1,4 @@
 var express = require('express');
-const { route } = require('../../APP_SERVER/routes');
 var router = express.Router();
 
 const ctrlCategories = require('../controllers/categories');
