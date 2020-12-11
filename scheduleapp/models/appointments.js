@@ -2,19 +2,19 @@ const mongoose = require('mongoose');
 
 const appointmentsSchema = new mongoose.Schema({
     customerId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         required: true
     },
     workerId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         required: true
     },
     groupId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         required: false
     },
     timetableId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         required: true
     },
     sequenceId: {

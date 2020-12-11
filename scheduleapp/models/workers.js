@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const commentSchema = new mongoose.Schema({
 	customerId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         required: true
     },
 	content : {
@@ -44,7 +44,7 @@ const workersSchema = new mongoose.Schema({
         max: 10
     },
     gourpId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         required: false
     },
     description: {
@@ -60,7 +60,7 @@ const workersSchema = new mongoose.Schema({
         required: true
     },
     category: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         required: true
     },
     avaliable: {

@@ -5,6 +5,11 @@ const categoriesSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
+    },
+    avaible: {
+        type: Boolean,
+        required: true,
+        default: true
     }
 });
 
