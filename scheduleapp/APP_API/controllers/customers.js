@@ -1,9 +1,40 @@
 const mongoose = require('mongoose');
 const customers = mongoose.model('customers');
 const groups = mongoose.model('groups');
+const authority = require('./checkAuthority.js');
 const workers = mongoose.model('workers');
 
+const customerLogin = function(req, res, next) {
+	const customerPhone = req.body.phone;
+	const customerPwd = req.body.pwd;
+    customers.findOne({phone: customerPhone})
+	     .exec((err, customerData) => {
+	         if(err) {
+	         	return res.status(404).json(err)
+	         }
+	         if (customerData.password == customerPwd) {
+				req.session.userInfo = customerData;
+				req.session.userInfo.level = 3;//0 is admin, 1 is group admin, 2 is workers, 3 is customers
+				//console.log(req.session.userInfo);
+				return res.status(201).json({"message": "login success!"});
+				
+			 } else {
+				return res.status(404).json({"message": "login fault!"});
+			 }
+	     });
+};
+
+const customerLoginCheck = function(req, res, next) {
+	if (req.session.userInfo) {
+		return res.status(200).json({"message" : "already login!"});
+		
+	} else {
+		return res.status(404).json({"message": "doesnt login!"});
+	}
+}; 
+
 const getCustomers = function(req, res, next) {
+	if(!authority.checkAdmin()) res.status(400).json({"message": "no authority"});
 	customers.find()
 	     .exec((err, customersData) => {
 	         if(err) {
@@ -46,6 +77,7 @@ const getSingleCustomer = function(req, res, next) {
 };
 
 const updateCustomer = function(req, res, next) {
+	if(!authority.checkAuthority(3, req.session.userInfo, req.params.customerId)) res.status(400).json({"message": "no authority"});
 	if (!req.params.customerId) {
 		res
 		.status(404)
@@ -54,6 +86,7 @@ const updateCustomer = function(req, res, next) {
 		});
 		return;
 	}
+	
 	customers.findById(req.params.customerId)
 	     .exec((err, customerData) => {
 	     	if (!customerData) {
@@ -90,6 +123,7 @@ const updateCustomer = function(req, res, next) {
 };
 
 const deleteCustomer = function(req, res, next) {
+	if(!authority.checkAuthority(3, req.session.userInfo, req.params.customerId)) res.status(400).json({"message": "no authority"});
 	const customerId = req.params.customerId;
 
 	if (customerId) {
@@ -285,5 +319,7 @@ module.exports = {
     getSingleCustomer,
     createCustomers,
     updateCustomer,
-    deleteCustomer
+	deleteCustomer,
+	customerLogin,
+	customerLoginCheck
 };

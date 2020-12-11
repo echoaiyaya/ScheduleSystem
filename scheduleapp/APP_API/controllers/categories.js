@@ -12,7 +12,7 @@ const getfilterCategories = function(req, res, next) {
 };
 
 const getCategories = function(req, res, next) {
-	categories.find({avaible: {$in: true}})
+	categories.find()
 	     .exec((err, categoriesData) => {
 	         if(err) {
 	         	return res.status(404).json(err)

@@ -65,7 +65,8 @@ const workersSchema = new mongoose.Schema({
     },
     avaliable: {
         type: Boolean,
-        required: true
+        required: false,
+        default: false
     },
     comments: [ commentSchema ]
 });

@@ -45,3 +45,8 @@ database:
    (3).delete an appointment. will have to talk to provider so provider can refund deposit
    (4).manage personal info (get/create/update/delete)
    (5).check own schedule. 
+
+
+level of each role
+
+0 is admin, 1 is group admin, 2 is workers, 3 is customers

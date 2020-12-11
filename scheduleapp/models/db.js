@@ -19,3 +19,4 @@ require('./workers');
 require('./timetables');
 require('./appointments');
 require('./categories');
+require('./admins');

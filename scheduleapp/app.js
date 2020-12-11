@@ -4,12 +4,22 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var db = require('./models/db');
+var cookieParser = require('cookie-parser');
+var session = require("express-session");
 
 var indexRouter = require('./APP_SERVER/routes/index');
 var usersRouter = require('./APP_SERVER/routes/users');
 var apiRouter = require('./APP_API/routes/index');
 
 var app = express();
+app.use(cookieParser());
+app.use(session({
+  secret: 'schedule',
+  name: 'finalProject',
+  resave: false,
+  saveUninitialized: true
+
+}));
 app.use('/api', (req, res, next) => {  
   res.header('Access-Control-Allow-Origin', 'http://localhost:4200');  
   res.header('Access-Control-Allow-Methods', "*");
