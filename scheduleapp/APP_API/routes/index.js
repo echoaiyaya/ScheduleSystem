@@ -5,6 +5,7 @@ const ctrlCategories = require('../controllers/categories');
 const ctrlCustomers = require('../controllers/customers');
 const ctrlAdmins = require('../controllers/admins');
 const ctrlWorkers = require('../controllers/workers');
+const ctrlTimeTables = require('../controllers/timetables');
 
 router.route('/admins')
       .get(ctrlAdmins.getAdmins)
@@ -50,7 +51,9 @@ router.route('/workers/:workerId')
       .put(ctrlWorkers.updateWorker)
       .delete(ctrlWorkers.deleteWorker);
       
-
+router.route('/timeTables')
+      .get(ctrlTimeTables.getTimeTables)
+      .post(ctrlTimeTables.createTimeTables);
 
 
 module.exports = router;

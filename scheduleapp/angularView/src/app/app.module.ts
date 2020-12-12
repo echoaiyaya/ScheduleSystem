@@ -1,16 +1,38 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { APP_BASE_HREF } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
-import { AppComponent } from './app.component';
+//import { AppComponent } from './app.component';
+import { HomepageComponent } from './homepage/homepage.component';
+import { FrameworkComponent } from './framework/framework.component';
+import { WorkerDetailComponent } from './worker-detail/worker-detail.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    //AppComponent,
+    HomepageComponent,
+    FrameworkComponent,
+    WorkerDetailComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    RouterModule.forRoot([
+      {
+        path: '',
+        component: HomepageComponent
+      },
+      {
+        path: 'workers/:workerId',
+        component: WorkerDetailComponent
+      }
+    ])
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [{provide: APP_BASE_HREF, useValue: '/'}],
+  bootstrap: [FrameworkComponent]
 })
 export class AppModule { }

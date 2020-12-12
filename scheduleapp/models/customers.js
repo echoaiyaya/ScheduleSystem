@@ -23,7 +23,8 @@ const customersSchema = new mongoose.Schema({
         type: String,
         required: true,
         min: 6,
-        max: 10
+        max: 10,
+        select: false
     },
 });
 

@@ -37,8 +37,9 @@ const timeSchema = new mongoose.Schema({
 
 const timeTableSchema = new mongoose.Schema({
     workerId: {
-        type: String,
-        required: true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'workers',
+        required: true
     },
     year: {
         type: Number,
@@ -61,4 +62,4 @@ const timeTableSchema = new mongoose.Schema({
     times: [ timeSchema ]
 });
 
-const timeTable = mongoose.model('timeTable', timeTableSchema);
+const timeTables = mongoose.model('timeTables', timeTableSchema);

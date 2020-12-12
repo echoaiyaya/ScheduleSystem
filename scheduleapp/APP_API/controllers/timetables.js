@@ -1,12 +1,9 @@
+const session = require('express-session');
 const mongoose = require('mongoose');
-const timetables = mongoose.model('timetables');
-
-
-const mongoose = require('mongoose');
-const timetables = mongoose.model('timetables');
+const timetables = mongoose.model('timeTables');
 
 const getTimeTables = function(req, res, next) {
-	timetables.find()
+	timetables.find().populate({path: 'workerId', populate: {path: 'category'}})
 	     .exec((err, timetablesData) => {
 	         if(err) {
 	         	return res.status(404).json(err)
@@ -17,7 +14,7 @@ const getTimeTables = function(req, res, next) {
 
 const createTimeTables = function(req, res, next) {
     newTimeTable = {
-        workId: req.body.workId,
+        workId: req.session.body.userInfo._id,
 		year: req.body.year,
 	    month: req.body.month,
         date: req.body.date

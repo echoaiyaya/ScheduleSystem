@@ -69,7 +69,7 @@ const createWorkers = function(req, res, next) {
 
 
 const getSingleWorker = function(req, res, next) {
-	workers.findById(req.params.workerId)
+	workers.findById(req.params.workerId).populate('category').populate({path: 'comments', populate: {path: 'customerId'}})
 	     .exec((err, workerData) => {
 	         if(err) {
 	         	return res.status(404).json(err)

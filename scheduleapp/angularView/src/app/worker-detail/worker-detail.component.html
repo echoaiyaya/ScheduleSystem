@@ -1,0 +1,51 @@
+<div style="width: 80%;margin: 0 auto;">
+    
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">WorkerName: {{ pageContent.firstName }} {{ pageContent.lastName }}</h5>
+            <h5 class="card-title">job type: {{ pageContent.category.title }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Company: {{ pageContent.groupId }}</h6>
+            <p class="card-text">Description: {{ pageContent.description }}</p>
+            <h6 class="card-subtitle mb-2 text-muted">Phone: {{ pageContent.phone }}</h6>
+            <h6 class="card-subtitle mb-2 text-muted">Email: {{ pageContent.email }}</h6>
+            <h6 class="card-subtitle mb-2 text-muted">available: {{ pageContent.avaliable }}</h6>
+        </div>
+    </div>
+    
+    <!-- <a class="btn btn-primary" routerLink="/update/{{pageContent.id}}">Update</a>
+    <a class="btn btn-danger" style="cursor: pointer;" (click)="deleteFunc(pageContent.id)">Delete</a> -->
+    
+    <div class="card">
+        <div class="card-body">
+            <h1 style="text-align: center;">Comments</h1>
+            
+                <div *ngFor="let comment of pageContent.comments">
+                    <h5 class="card-title">Customer: {{comment.customerId.firstName}} {{comment.customerId.lastName}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Rating: {{ comment.rating }}</h6>
+                    <p class="card-text">
+                        {{ comment.content }}
+                    </p>
+                    <a class="card-link" style="cursor: pointer;color: red;" (click)="deleteComm(pageContent.id, comment._id)">Delete</a>
+                    <hr>
+                </div>
+           
+            
+        </div>
+    </div>
+    <!-- <h1>Add New Comment</h1>
+    <form (ngSubmit)="createComment(newComment)">
+        <div class="form-group">
+            <label for="cname">Your Name</label>
+            <input id="cname" [(ngModel)]="newComment.cName" class="form-control" type="text" name="cName">
+        </div>
+        <div class="form-group">
+            <label for="content">Your Content</label>
+            <input id="content" [(ngModel)]="newComment.content" class="form-control" type="text" name="content">
+        </div>
+        <div class="form-group">
+            <label for="rating">rating</label>
+            <input id="rating" [(ngModel)]="newComment.rating" class="form-control" type="number" name="rating">
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form> -->
+</div>

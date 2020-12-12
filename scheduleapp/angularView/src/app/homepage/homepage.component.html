@@ -1,0 +1,25 @@
+<h1 style="text-align: center;">{{ pageContent.title }}</h1>
+<div style="width: 80%;margin: 0 auto;">
+    <ul class="list-unstyled">
+        <li style="margin-bottom: 1em;" *ngFor="let timeTable of timeTables;">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">category: {{timeTable.workerId.category.title}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">By {{timeTable.workerId.firstName}} {{timeTable.workerId.lastName}}</h6>
+                    <p class="card-text">{{timeTable.workerId.description}}</p>
+                    <hr>
+                    <h5 class="card-title">available time</h5>
+                    <p class="card-text">Year:{{timeTable.year}} Month: {{ timeTable.month }} Date: {{timeTable.date}}</p>
+                    <div *ngFor="let time of timeTable.times">
+                        
+                        <p class="card-text">From:{{time.startHour}}:{{time.startMin}} to {{time.endHour}}:{{time.endMin}}</p>
+                    </div>
+                    <hr>
+                    <a class="btn btn-primary card-link" routerLink="/workers/{{ timeTable.workerId._id }}">read customers' comments</a>
+                    <a class="btn btn-success card-link" routerLink="">Book an appoinment</a>
+                    <!-- <a class="card-link" style="cursor: pointer;color: red;" (click)="deleteFunc(book._id)">Delete</a> -->
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
