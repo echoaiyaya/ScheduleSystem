@@ -13,7 +13,7 @@ router.route('/admins')
 router.route('/admins/:adminId')
       .put(ctrlAdmins.updateAdmin);
 
-router.route('/aminds/login')
+router.route('/admins/login')
       .post(ctrlAdmins.adminLogin)
       .get(ctrlAdmins.adminLoginCheck);
 
