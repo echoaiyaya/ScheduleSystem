@@ -149,168 +149,180 @@ const deleteCustomer = function(req, res, next) {
 	}
 };
 
-// const createCommentsForWorkers = function(req, res, next) {
-// 	if (!req.params.workerId) {
-// 		res
-// 		.status(404)
-// 		.json({
-// 			"message" : "Not found, workerId is required"
-// 		});
-// 		return;
-// 	}
-// 	workers.findById(req.params.workerId)
-// 	     .exec((err, workerData) => {
-// 	     	if (!workerData) {
-// 	     		res
-// 	     		.status(404)
-// 	     		.json({
-// 	     			"message" : "worker not found"
-// 	     		});
-// 	     		return;
-// 	     	} else if (err) {
-// 	     		res
-// 	     		.status(400)
-// 	     		.json(err);
-// 	     		return;
-// 	     	}
-// 	     	comments = {};
-// 	     	comments.cName = req.body.cName;
-// 	     	comments.content = req.body.content;
-// 	     	comments.rating = req.body.rating;
-// 	     	comments.date = req.body.date;
-// 	     	booksData.comments.push(comments);
-// 	     	booksData.save((err, booksData) => {
-// 	     		if (err) {
-// 	     			res
-// 	     			.status(404)
-// 	     			.json(err);
-// 	     		} else {
-// 	     			res
-// 	     			.status(200)
-// 	     			.json(booksData)
-// 	     		}
-// 	     	});
+const createComments = function(req, res, next) {
+	if (!req.params.targetId) {
+		res
+		.status(404)
+		.json({
+			"message" : "Not found, targetId is required"
+		});
+		return;
+	}
+	const targetModel = workers;
+	if (req.params.targetType == 2) {
+		targetModel = groups;
+	} 
+	targetModel.findById(req.params.targetId)
+	     .exec((err, targetData) => {
+	     	if (!workerData) {
+	     		res
+	     		.status(404)
+	     		.json({
+	     			"message" : "not found"
+	     		});
+	     		return;
+	     	} else if (err) {
+	     		res
+	     		.status(400)
+	     		.json(err);
+	     		return;
+	     	}
+	     	comments = {};
+	     	comments.customerId = req.session.userInfo._id;
+	     	comments.content = req.body.content;
+	     	comments.rating = req.body.rating;
+	     	comments.date = req.body.date;
+	     	targetData.comments.push(comments);
+	     	targetData.save((err, targetData) => {
+	     		if (err) {
+	     			res
+	     			.status(404)
+	     			.json(err);
+	     		} else {
+	     			res
+	     			.status(200)
+	     			.json(targetData)
+	     		}
+	     	});
 
-// 	     });
-// }
+	     });
+}
 
-// const updateSingleComment = function(req, res, next) {
-// 	if (!req.params.bookid) {
-// 		res
-// 		.status(404)
-// 		.json({
-// 			"message" : "Not found, bookid is required"
-// 		});
-// 		return;
-// 	}
-// 	if (!req.params.commentid) {
-// 		res
-// 		.status(404)
-// 		.json({
-// 			"message" : "Not found, commentid is required"
-// 		});
-// 		return;
-// 	}
-// 	books.findById(req.params.bookid)
-// 	     .exec((err, bookData) => {
-// 	     	if (!bookData) {
-// 	     		res
-// 	     		.status(404)
-// 	     		.json({
-// 	     			"message" : "bookid not found"
-// 	     		});
-// 	     		return;
-// 	     	} else if (err) {
-// 	     		res
-// 	     		.status(400)
-// 	     		.json(err);
-// 	     		return;
-// 	     	}
-// 	     	var comment = bookData.comments.id(req.params.commentid);
-// 	     	if (!comment) {
-// 	     		res
-// 	     		.status(404)
-// 	     		.json({
-// 	     			"message" : "commentid not found"
-// 	     		});
-// 	     		return;
-// 	     	} else {
-// 	     		comment.cName = req.body.cName;
-// 	     		comment.rating = req.body.rating;
-// 	     		comment.content = req.body.content;
-// 	     		bookData.save((err, bookData) => {
-// 		     		if (err) {
-// 		     			res
-// 		     			.status(404)
-// 		     			.json(err);
-// 		     		} else {
-// 		     			res
-// 		     			.status(200)
-// 		     			.json(comment);
-// 		     		}
-// 		     	});
-// 	     	}
+const updateSingleComment = function(req, res, next) {
+	const targetModel = workers;
+	if (req.params.targetType == 2) {
+		targetModel = groups;
+	} 
+	if (!req.params. targetId) {
+		res
+		.status(404)
+		.json({
+			"message" : "Not found, id is required"
+		});
+		return;
+	}
+	if (!req.params.commentid) {
+		res
+		.status(404)
+		.json({
+			"message" : "Not found, commentid is required"
+		});
+		return;
+	}
+	targetModel.findById(req.params.targetId)
+	     .exec((err, targetData) => {
+	     	if (!targetData) {
+	     		res
+	     		.status(404)
+	     		.json({
+	     			"message" : "targetId not found"
+	     		});
+	     		return;
+	     	} else if (err) {
+	     		res
+	     		.status(400)
+	     		.json(err);
+	     		return;
+	     	}
+	     	var comment = targetData.comments.id(req.params.commentid);
+	     	if (!comment) {
+	     		res
+	     		.status(404)
+	     		.json({
+	     			"message" : "commentid not found"
+	     		});
+	     		return;
+	     	} else {
+	     		comment.commentid = req.session.userInfo._id;
+	     		comment.rating = req.body.rating;
+	     		comment.content = req.body.content;
+	     		targetData.save((err, targetData) => {
+		     		if (err) {
+		     			res
+		     			.status(404)
+		     			.json(err);
+		     		} else {
+		     			res
+		     			.status(200)
+		     			.json(comment);
+		     		}
+		     	});
+	     	}
 
-// 	     });
-// };
+	     });
+};
 
-// const deleteSingleComment = function(req, res, next) {
-// 	if (!req.params.bookid) {
-// 		res
-// 		.status(404)
-// 		.json({
-// 			"message" : "Not found, bookid is required"
-// 		});
-// 		return;
-// 	}
-// 	if (!req.params.commentid) {
-// 		res
-// 		.status(404)
-// 		.json({
-// 			"message" : "Not found, commentid is required"
-// 		});
-// 		return;
-// 	}
-// 	books.findById(req.params.bookid)
-// 	     .exec((err, bookData) => {
-// 	     	if (!bookData) {
-// 	     		res
-// 	     		.status(404)
-// 	     		.json({
-// 	     			"message" : "bookid not found"
-// 	     		});
-// 	     		return;
-// 	     	} else if (err) {
-// 	     		res
-// 	     		.status(400)
-// 	     		.json(err);
-// 	     		return;
-// 	     	}
-// 	     	var comment = bookData.comments.id(req.params.commentid);
-// 	     	if (!comment) {
-// 	     		res
-// 	     		.status(404)
-// 	     		.json({
-// 	     			"message" : "commentid not found"
-// 	     		});
-// 	     		return;
-// 	     	} else {
-// 	     		comment.remove();
-// 	     		bookData.save((err, bookData) => {
-// 		     		if (err) {
-// 		     			res
-// 		     			.status(404)
-// 		     			.json(err);
-// 		     		} else {
-// 		     			res
-// 		     			.status(200)
-// 		     			.json(comment);
-// 		     		}
-// 		     	});
-// 	     	}
+const deleteSingleComment = function(req, res, next) {
+	const targetModel = workers;
+	if (req.params.targetType == 2) {
+		targetModel = groups;
+	} 
+	if (!req.params.targetId) {
+		res
+		.status(404)
+		.json({
+			"message" : "Not found, id is required"
+		});
+		return;
+	}
+	if (!req.params.commentid) {
+		res
+		.status(404)
+		.json({
+			"message" : "Not found, commentid is required"
+		});
+		return;
+	}
+	targetModel.findById(req.params.targetId)
+	     .exec((err, targetData) => {
+	     	if (!targetData) {
+	     		res
+	     		.status(404)
+	     		.json({
+	     			"message" : "id not found"
+	     		});
+	     		return;
+	     	} else if (err) {
+	     		res
+	     		.status(400)
+	     		.json(err);
+	     		return;
+	     	}
+	     	var comment = targetData.comments.id(req.params.commentid);
+	     	if (!comment) {
+	     		res
+	     		.status(404)
+	     		.json({
+	     			"message" : "commentid not found"
+	     		});
+	     		return;
+	     	} else {
+	     		comment.remove();
+	     		targetData.save((err, targetData) => {
+		     		if (err) {
+		     			res
+		     			.status(404)
+		     			.json(err);
+		     		} else {
+		     			res
+		     			.status(200)
+		     			.json(comment);
+		     		}
+		     	});
+	     	}
 
-// 	     });
-// }
+	     });
+}
 
 
 
@@ -321,5 +333,8 @@ module.exports = {
     updateCustomer,
 	deleteCustomer,
 	customerLogin,
-	customerLoginCheck
+	customerLoginCheck,
+	createComments,
+	updateSingleComment,
+	deleteSingleComment
 };
