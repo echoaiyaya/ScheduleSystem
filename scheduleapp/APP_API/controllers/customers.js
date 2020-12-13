@@ -6,30 +6,36 @@ const workers = mongoose.model('workers');
 
 const customerLogin = function(req, res, next) {
 	const customerPhone = req.body.phone;
-	const customerPwd = req.body.pwd;
+	const customerPwd = req.body.password;
     customers.findOne({phone: customerPhone})
 	     .exec((err, customerData) => {
 	         if(err) {
 	         	return res.status(404).json(err)
-	         }
+			 }
+			 if(customerData == null) {
+				return res.status(202).json({"message": "login fault!", "code":"400"});
+			 }
+			 console.log(customerData)
+			//  console.log(customerPwd)
 	         if (customerData.password == customerPwd) {
 				req.session.userInfo = customerData;
 				req.session.userInfo.level = 3;//0 is admin, 1 is group admin, 2 is workers, 3 is customers
 				//console.log(req.session.userInfo);
-				return res.status(201).json({"message": "login success!"});
+				return res.status(201).json({"message": "login success!", "code":"200"});
 				
 			 } else {
-				return res.status(404).json({"message": "login fault!"});
+				return res.status(202).json({"message": "login fault!", "code":"400"});
 			 }
 	     });
 };
 
 const customerLoginCheck = function(req, res, next) {
+	console.log(req.session.userInfo)
 	if (req.session.userInfo) {
-		return res.status(200).json({"message" : "already login!"});
+		return res.status(200).json({"message" : "already login!", "code":"200"});
 		
 	} else {
-		return res.status(404).json({"message": "doesnt login!"});
+		return res.status(200).json({"message": "doesnt login!", "code":"400"});
 	}
 }; 
 

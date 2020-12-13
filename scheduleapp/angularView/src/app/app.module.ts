@@ -9,13 +9,15 @@ import { FormsModule } from '@angular/forms';
 import { HomepageComponent } from './homepage/homepage.component';
 import { FrameworkComponent } from './framework/framework.component';
 import { WorkerDetailComponent } from './worker-detail/worker-detail.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     //AppComponent,
     HomepageComponent,
     FrameworkComponent,
-    WorkerDetailComponent
+    WorkerDetailComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +31,10 @@ import { WorkerDetailComponent } from './worker-detail/worker-detail.component';
       {
         path: 'workers/:workerId',
         component: WorkerDetailComponent
+      },
+      {
+        path: 'login',
+        component: LoginComponent
       }
     ])
   ],
