@@ -9,6 +9,15 @@ export class Times {
     reservationLimit: number;
 }
 
+export class inputTimetables {
+    _id: string;
+    workerId: string;
+    year: number;
+    month: number;
+    date: number;
+    times: Times[];
+}
+
 export class Timetables {
     _id: string;
     workerId: Workers;

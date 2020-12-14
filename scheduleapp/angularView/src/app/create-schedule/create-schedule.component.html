@@ -1,0 +1,43 @@
+<h1 style="text-align: center;">Create a schedule</h1>
+<div style="width: 80%;margin: 0 auto;">
+    <form (ngSubmit)="createSchedule(timeTable)">
+        <div class="form-group">
+            <label for="year">Please enter a year</label>
+            <input id="year" [(ngModel)]="timeTable.year" class="form-control" type="number" name="year">
+        </div>
+        <div class="form-group">
+            <label for="month">Please enter a month</label>
+            <input id="month" [(ngModel)]="timeTable.month" class="form-control" type="number" name="month">
+        </div>
+        <div class="form-group">
+            <label for="date">Please enter a date</label>
+            <input id="date" [(ngModel)]="timeTable.date" class="form-control" type="number" name="date">
+        </div>
+        <button class="btn btn-primary" type="submit">Next</button>
+    </form>
+    <div *ngFor="let showTime of showTimes">
+                        
+        <p class="card-text">From:{{showTime.startHour}}:{{showTime.startMin}} to {{showTime.endHour}}:{{showTime.endMin}}</p>
+    </div>
+    <form (ngSubmit)="createTime(times)" *ngIf="timeForm">
+        <div class="form-group">
+            <label for="startHour">Please enter startHour</label>
+            <input id="startHour" [(ngModel)]="times.startHour" class="form-control" type="number" name="startHour">
+        </div>
+        <div class="form-group">
+            <label for="startMin">Please enter startMin</label>
+            <input id="startMin" [(ngModel)]="times.startMin" class="form-control" type="number" name="startMin">
+        </div>
+        <div class="form-group">
+            <label for="endHour">Please enter endHour</label>
+            <input id="endHour" [(ngModel)]="times.endHour" class="form-control" type="number" name="endHour">
+        </div>
+        <div class="form-group">
+            <label for="endMin">Please enter endMin</label>
+            <input id="endMin" [(ngModel)]="times.endMin" class="form-control" type="number" name="endMin">
+        </div>
+        <button class="btn btn-primary" type="submit">Create</button>
+    </form>
+    
+    
+</div>

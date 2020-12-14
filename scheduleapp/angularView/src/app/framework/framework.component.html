@@ -1,6 +1,6 @@
 
 <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">BookStore</a>
+    <a class="navbar-brand" href="#">Schedule System</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -11,7 +11,7 @@
           <a class="nav-link" routerLink="">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="list">About</a>
+          <a class="nav-link" routerLink="about">About</a>
         </li>
         <li class="nav-item" >
          <a class="nav-link" [hidden]="login == true" routerLink="login">Login</a>
@@ -22,8 +22,14 @@
         <li [hidden]="login == true">
           <a class="nav-link" routerLink="register">register</a>
         </li>
-        <li [hidden]="login == false">
+        <li [hidden]="login == false" *ngIf="!switchS">
           <a class="nav-link" routerLink="appointment">appointment</a>
+        </li>
+        <li *ngIf="switchS">
+          <a class="nav-link" routerLink="wappointment">appointment</a>
+        </li>
+        <li *ngIf="switchS">
+          <a class="nav-link" routerLink="schedule">schedule</a>
         </li>
         
         

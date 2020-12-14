@@ -29,9 +29,10 @@ const timeSchema = new mongoose.Schema({
     },
     reservationLimit: {
         type: Number,
-        required: true,
+        required: false,
         min: 1,
-        max: 999
+        max: 999,
+        default: 4
     }
 });
 

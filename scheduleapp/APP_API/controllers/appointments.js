@@ -37,6 +37,31 @@ const getAppointmentsById = function(req, res, next) {
 	     });
 };
 
+const getAppointmentsByWid = function(req, res, next) {
+	cid = req.params.workerId;
+	appointments.find({workerId: {$in: cid }}).lean().populate({path: 'customerId'}).populate({path: 'workerId', populate : {path: 'category'}}).populate({path: 'timetableId'})
+	     .exec((err, appointmentsData) => {
+	        if(err) {
+	         	return res.status(404).json(err)
+			}
+
+			appointmentsData = appointmentsData.map(v => {
+				let timeId = v.timeId;
+				v.timetableId.times.forEach(t => {
+					if (String(t._id) == String(timeId)) {
+						v.timeId = t;
+					};
+				});
+				
+				return v;
+			});
+			
+			return res.status(200).json(appointmentsData);
+			
+	         
+	     });
+};
+
 const createAppointments = function(req, res, next) {
     newAppointment = {
         workerId: req.body.workerId,
@@ -145,5 +170,6 @@ module.exports = {
     createAppointments,
     updateAppointment,
 	deleteAppointment,
-	getAppointmentsById
+	getAppointmentsById,
+	getAppointmentsByWid
 };

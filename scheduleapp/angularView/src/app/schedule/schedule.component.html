@@ -1,0 +1,19 @@
+<h1 style="text-align: center;">My Schedule</h1>
+<div style="width: 80%;margin: 0 auto;">
+    <ul class="list-unstyled">
+        <li style="margin-bottom: 1em;" *ngFor="let timeTable of timeTables;">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">Year:{{timeTable.year}} Month: {{ timeTable.month }} Date: {{timeTable.date}}</p>
+                    <div *ngFor="let time of timeTable.times">
+                        
+                        <p class="card-text">From:{{time.startHour}}:{{time.startMin}} to {{time.endHour}}:{{time.endMin}}</p>
+                    </div>
+                    <hr>
+                    <a class="btn btn-danger" style="cursor: pointer;" (click)="deleteFunc(timeTable._id)">Delete</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <a class="btn btn-primary" routerLink="/createS">create new schedule</a>
+</div>

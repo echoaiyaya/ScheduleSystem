@@ -13,6 +13,10 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { TimetableDetailComponent } from './timetable-detail/timetable-detail.component';
 import { AppointmentComponent } from './appointment/appointment.component';
+import { WappointmentComponent } from './wappointment/wappointment.component';
+import { ScheduleComponent } from './schedule/schedule.component';
+import { CreateScheduleComponent } from './create-schedule/create-schedule.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,11 @@ import { AppointmentComponent } from './appointment/appointment.component';
     LoginComponent,
     RegisterComponent,
     TimetableDetailComponent,
-    AppointmentComponent
+    AppointmentComponent,
+    WappointmentComponent,
+    ScheduleComponent,
+    CreateScheduleComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +61,21 @@ import { AppointmentComponent } from './appointment/appointment.component';
       {
         path: 'appointment',
         component: AppointmentComponent
+      },
+      {
+        path: 'wappointment',
+        component: WappointmentComponent
+      },
+      {
+        path: 'schedule',
+        component: ScheduleComponent
+      },
+      {
+        path: 'createS',
+        component: CreateScheduleComponent
+      },{
+        path: 'about',
+        component: AboutComponent
       }
     ])
   ],

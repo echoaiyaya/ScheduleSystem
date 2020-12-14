@@ -4,19 +4,19 @@
         <li style="margin-bottom: 1em;" *ngFor="let appoinment of appointments;">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Worker name: {{appoinment.workerId.firstName}} {{appoinment.workerId.lastName}}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Job type: {{appoinment.workerId.category.title}}</h6>
-                    <h6 class="card-subtitle mb-2 text-muted">Phone: {{appoinment.workerId.phone}}</h6>
-                    <h6 class="card-subtitle mb-2 text-muted">Email: {{appoinment.workerId.email}}</h6>
+                    <h5 class="card-title">Customer name: {{appoinment.customerId.firstName}} {{appoinment.customerId.lastName}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Phone: {{appoinment.customerId.phone}}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">Email: {{appoinment.customerId.email}}</h6>
                     <hr>
                     <h5 class="card-title">Appointment time</h5>
                     <p class="card-text">Year:{{appoinment.timetableId.year}} Month: {{ appoinment.timetableId.month }} Date: {{appoinment.timetableId.date}}</p>
+                   
                         
                     <p class="card-text">From:{{appoinment.timeId.startHour}}:{{appoinment.timeId.startMin}} to {{appoinment.timeId.endHour}}:{{appoinment.timeId.endMin}}</p>
                     
                     <hr>
                     <a class="btn btn-danger card-link" (click)="deleteFunc(appoinment._id)">cancel an appoinment</a>
-                    <!-- <a class="card-link" style="cursor: pointer;color: red;" (click)="deleteFunc(book._id)">Delete</a> -->
+                
                 </div>
             </div>
         </li>

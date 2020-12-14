@@ -19,6 +19,17 @@ export class inputComments {
     date: Date;
 }
 
+export class inputWorkder {
+    _id: string;
+    firstName: string;
+    lastName: string;
+    password: string;
+    description: string;
+    phone: string;
+    email: string;
+    category: string;
+}
+
 export class Workers {
     _id: string;
     firstName: string;

@@ -42,8 +42,7 @@ const workersSchema = new mongoose.Schema({
         type: String,
         required: true,
         min: 6,
-        max: 10,
-        select: false
+        max: 10
     },
     gourpId: {
         type: String,

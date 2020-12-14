@@ -52,6 +52,12 @@ router.route('/customer/comment/:targetId')
 router.route('/customer/comment/:targetId/:commentId')
       .delete(ctrlCustomers.deleteSingleComment);
 
+router.route('/worker/login')
+      .post(ctrlWorkers.workerLogin);
+
+router.route('/worker/logout')
+      .get(ctrlWorkers.workerLogout);
+
 router.route('/workers')
       .get(ctrlWorkers.getWorkers)
       .post(ctrlWorkers.createWorkers);
@@ -65,17 +71,27 @@ router.route('/timeTables')
       .get(ctrlTimeTables.getTimeTables)
       .post(ctrlTimeTables.createTimeTables);
 
+router.route('/timeTable/times/:timetableId')
+      .post(ctrlTimeTables.createTimes);
+
 router.route('/timeTable/:tid')
-      .get(ctrlTimeTables.getSingleTimeTable);
+      .get(ctrlTimeTables.getSingleTimeTable)
+      .delete(ctrlTimeTables.deleteTimeTable);
 
 router.route('/timeTables/:cid')
       .get(ctrlTimeTables.getCategoryTimeTables);
+
+router.route('/timeTables/worker/:workerId')
+      .get(ctrlTimeTables.getTimeTablesById);
 
 router.route('/appointment')
       .post(ctrlAppointment.createAppointments);
 
 router.route('/appointment/:customerId')
       .get(ctrlAppointment.getAppointmentsById);
+
+router.route('/appointment/worker/:workerId')
+      .get(ctrlAppointment.getAppointmentsByWid);
 
 router.route('/appointment/:appointmentId')
       .delete(ctrlAppointment.deleteAppointment);
