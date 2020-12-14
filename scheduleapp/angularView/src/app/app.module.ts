@@ -10,6 +10,9 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { FrameworkComponent } from './framework/framework.component';
 import { WorkerDetailComponent } from './worker-detail/worker-detail.component';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { TimetableDetailComponent } from './timetable-detail/timetable-detail.component';
+import { AppointmentComponent } from './appointment/appointment.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,10 @@ import { LoginComponent } from './login/login.component';
     HomepageComponent,
     FrameworkComponent,
     WorkerDetailComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent,
+    TimetableDetailComponent,
+    AppointmentComponent
   ],
   imports: [
     BrowserModule,
@@ -35,6 +41,18 @@ import { LoginComponent } from './login/login.component';
       {
         path: 'login',
         component: LoginComponent
+      },
+      {
+        path: 'register',
+        component: RegisterComponent
+      },
+      {
+        path: 'timetable/:timeTableId',
+        component: TimetableDetailComponent
+      },
+      {
+        path: 'appointment',
+        component: AppointmentComponent
       }
     ])
   ],

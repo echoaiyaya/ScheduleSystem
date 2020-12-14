@@ -61,5 +61,5 @@ const timeTableSchema = new mongoose.Schema({
     },
     times: [ timeSchema ]
 });
-
+const time = mongoose.model('time', timeSchema);
 const timeTables = mongoose.model('timeTables', timeTableSchema);

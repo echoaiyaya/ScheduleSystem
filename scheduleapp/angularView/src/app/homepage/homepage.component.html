@@ -1,5 +1,15 @@
 <h1 style="text-align: center;">{{ pageContent.title }}</h1>
 <div style="width: 80%;margin: 0 auto;">
+    <ul class="nav" style="margin-bottom: 1em;">
+        <li class="nav-item" style="margin-right: 1em;">
+            <a class="nav-link btn btn-primary" aria-current="page" (click)="getTimeTables()" href="#">All</a>
+          </li>
+        <li class="nav-item" *ngFor="let category of categories;" style="margin-right: 1em;">
+          <a class="nav-link btn btn-primary" aria-current="page" (click)="getCidTimeTable(category._id)" href="#">{{ category.title }}</a>
+        </li>
+        
+        
+      </ul>
     <ul class="list-unstyled">
         <li style="margin-bottom: 1em;" *ngFor="let timeTable of timeTables;">
             <div class="card">
@@ -16,7 +26,7 @@
                     </div>
                     <hr>
                     <a class="btn btn-primary card-link" routerLink="/workers/{{ timeTable.workerId._id }}">read customers' comments</a>
-                    <a class="btn btn-success card-link" routerLink="">Book an appoinment</a>
+                    <a class="btn btn-success card-link" routerLink="/timetable/{{ timeTable._id }}">Book an appoinment</a>
                     <!-- <a class="card-link" style="cursor: pointer;color: red;" (click)="deleteFunc(book._id)">Delete</a> -->
                 </div>
             </div>

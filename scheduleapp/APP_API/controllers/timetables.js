@@ -12,6 +12,23 @@ const getTimeTables = function(req, res, next) {
 	     })
 };
 
+const getCategoryTimeTables = function(req, res, next) {
+	console.log(req.params.cid)
+	timetables.find().populate({path: 'workerId', populate: {path: 'category'}})
+	     .exec((err, timetablesData) => {
+	         if(err) {
+	         	return res.status(404).json(err)
+			 }
+			 let filterdata = timetablesData.filter(v => {
+				 console.log(v.workerId.category._id)
+				 return v.workerId.category._id == req.params.cid;
+			 })
+			 console.log(filterdata);
+
+	         res.status(200).json(filterdata);
+	     })
+};
+
 const createTimeTables = function(req, res, next) {
     newTimeTable = {
         workId: req.session.body.userInfo._id,
@@ -34,7 +51,7 @@ const createTimeTables = function(req, res, next) {
 
 
 const getSingleTimeTable = function(req, res, next) {
-	timetables.findById(req.params.timetableId)
+	timetables.findById(req.params.tid).populate({path: 'workerId', populate: {path: 'category'}})
 	     .exec((err, timetableData) => {
 	         if(err) {
 	         	return res.status(404).json(err)
@@ -287,5 +304,6 @@ module.exports = {
     deleteTimeTable,
     createTimes,
     updateSingleTime,
-    deleteSingleTime
+	deleteSingleTime,
+	getCategoryTimeTables
 };

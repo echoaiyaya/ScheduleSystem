@@ -1,5 +1,18 @@
+import { Categories } from './timetables';
+import { Customers } from './customers';
+
 export class Comments {
     _id: string;
+    targetType: number;
+    customerId: Customers;
+    content: string;
+    rating: number;
+    date: Date;
+}
+
+export class inputComments {
+    _id: string;
+    targetType: number;
     customerId: string;
     content: string;
     rating: number;
@@ -15,7 +28,7 @@ export class Workers {
     description: string;
     phone: string;
     email: string;
-    category: string;
+    category: Categories;
     avaliable: boolean;
     comments: [Comments];
 }

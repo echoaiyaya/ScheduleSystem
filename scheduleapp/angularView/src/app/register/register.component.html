@@ -1,0 +1,30 @@
+<div style="width: 80%;margin: 0 auto;">
+    <h1>Register</h1>
+    <form (ngSubmit)="createNewCustomer(newCustomer)">
+        <div class="form-group">
+            <label for="firstName">firstname</label>
+            <input class="form-control" [(ngModel)]="newCustomer.firstName" id="firstName" name="firstName" required="required">    
+        </div>
+        <div class="form-group">
+            <label for="lastName">lastName</label>
+            <input class="form-control" [(ngModel)]="newCustomer.lastName" id="lastName" name="lastName" required="required">
+        </div>
+        <div class="form-group">
+            <label for="phone">phone</label>
+            <input class="form-control" [(ngModel)]="newCustomer.phone" id="phone" name="phone" required="required">
+        </div>
+        <div class="form-group">
+            <label for="email">email</label>
+            <input class="form-control" [(ngModel)]="newCustomer.email" id="email" name="email" type="email" required="required">
+        </div>
+        <div class="form-group">
+            <label for="password">password</label>
+            <input class="form-control" [(ngModel)]="newCustomer.password" id="password" name="password" type="password" required="required">
+        </div>
+        
+        
+        
+        
+        <button class="btn btn-primary" type="submit">Create</button>
+    </form>
+</div>

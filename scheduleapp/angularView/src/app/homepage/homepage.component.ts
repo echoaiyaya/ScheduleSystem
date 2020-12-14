@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Timetables } from '../timetables';
+import { Categories, Timetables } from '../timetables';
 import { TimetablesService } from '../timetables.service';
 
 @Component({
@@ -11,11 +11,13 @@ import { TimetablesService } from '../timetables.service';
 export class HomepageComponent implements OnInit {
 
   timeTables: Timetables[];
+  categories: Categories[];
 
   constructor(private timeTablesService : TimetablesService) { }
 
   ngOnInit(): void {
     this.getTimeTables();
+    this.getCategories();
   }
 
   public getTimeTables() {
@@ -27,6 +29,30 @@ export class HomepageComponent implements OnInit {
       });
     });
   }
+
+  public getCategories() {
+    this.timeTablesService
+    .getCategories()
+    .then((v:Categories[]) => {
+      this.categories = v.map(category => {
+        return category;
+      });
+    });
+  }
+
+  public getCidTimeTable(cid:string) {
+    this.timeTablesService
+    .getCidTimeTable(cid)
+    .then((v:Timetables[]) => {
+      this.timeTables = v.map(timeTable => {
+        return timeTable;
+      });
+    });
+  }
+
+
+
+
 
   pageContent = {
     title: 'Here is avaible workers list'

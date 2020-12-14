@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-expand navbar-dark bg-dark">
     <a class="navbar-brand" href="#">BookStore</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,9 +14,16 @@
           <a class="nav-link" routerLink="list">About</a>
         </li>
         <li class="nav-item" >
-         <a class="nav-link" *ngIf="login == false" routerLink="login">Login</a>
-          <a class="nav-link" *ngIf="login == true" routerLink="login">logout</a>
+         <a class="nav-link" [hidden]="login == true" routerLink="login">Login</a>
+         
+          <a class="nav-link" [hidden]="login == false" (click)="logout()">logout</a>
             
+        </li>
+        <li [hidden]="login == true">
+          <a class="nav-link" routerLink="register">register</a>
+        </li>
+        <li [hidden]="login == false">
+          <a class="nav-link" routerLink="appointment">appointment</a>
         </li>
         
         

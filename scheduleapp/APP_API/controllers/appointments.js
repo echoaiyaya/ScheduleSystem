@@ -1,3 +1,4 @@
+const { json } = require('express');
 const mongoose = require('mongoose');
 const appointments = mongoose.model('appointments');
 
@@ -11,11 +12,36 @@ const getAppointments = function(req, res, next) {
 	     })
 };
 
+const getAppointmentsById = function(req, res, next) {
+	cid = req.params.customerId;
+	appointments.find({customerId: {$in: cid }}).lean().populate({path: 'customerId'}).populate({path: 'workerId', populate : {path: 'category'}}).populate({path: 'timetableId'})
+	     .exec((err, appointmentsData) => {
+	        if(err) {
+	         	return res.status(404).json(err)
+			}
+
+			appointmentsData = appointmentsData.map(v => {
+				let timeId = v.timeId;
+				v.timetableId.times.forEach(t => {
+					if (String(t._id) == String(timeId)) {
+						v.timeId = t;
+					};
+				});
+				
+				return v;
+			});
+			
+			return res.status(200).json(appointmentsData);
+			
+	         
+	     });
+};
+
 const createAppointments = function(req, res, next) {
     newAppointment = {
         workerId: req.body.workerId,
-		customerId: req.session.userInfo._id,
-	    groupId: req.body.groupId,
+		customerId: req.body.customerId,
+		timeId: req.body.timeId,
         timetableId: req.body.timetableId,
         sequenceId: req.body.sequenceId + 1
     };
@@ -91,7 +117,7 @@ const deleteAppointment = function(req, res, next) {
 
 	if (appointmentId) {
 		appointments
-		.findByIdAndRemove(appointmentsId)
+		.findByIdAndRemove(appointmentId)
 		.exec((err, appointmentData) => {
 			if (err) {
 				res
@@ -118,5 +144,6 @@ module.exports = {
     getSingleAppointment,
     createAppointments,
     updateAppointment,
-    deleteAppointment
+	deleteAppointment,
+	getAppointmentsById
 };

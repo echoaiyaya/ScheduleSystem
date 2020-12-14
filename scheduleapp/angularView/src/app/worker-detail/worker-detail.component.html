@@ -25,19 +25,15 @@
                     <p class="card-text">
                         {{ comment.content }}
                     </p>
-                    <a class="card-link" style="cursor: pointer;color: red;" (click)="deleteComm(pageContent.id, comment._id)">Delete</a>
+                    <a class="card-link" style="cursor: pointer;color: red;" (click)="deleteComm(pageContent.id, comment._id, comment.customerId._id)">Delete</a>
                     <hr>
                 </div>
            
             
         </div>
     </div>
-    <!-- <h1>Add New Comment</h1>
+    <h1>Add New Comment</h1>
     <form (ngSubmit)="createComment(newComment)">
-        <div class="form-group">
-            <label for="cname">Your Name</label>
-            <input id="cname" [(ngModel)]="newComment.cName" class="form-control" type="text" name="cName">
-        </div>
         <div class="form-group">
             <label for="content">Your Content</label>
             <input id="content" [(ngModel)]="newComment.content" class="form-control" type="text" name="content">
@@ -47,5 +43,5 @@
             <input id="rating" [(ngModel)]="newComment.rating" class="form-control" type="number" name="rating">
         </div>
         <button class="btn btn-primary" type="submit">Submit</button>
-    </form> -->
+    </form>
 </div>
