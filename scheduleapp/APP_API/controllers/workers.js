@@ -5,23 +5,34 @@ const authority = require('./checkAuthority.js');
 
 const workerLogin = function(req, res, next) {
 	const workerPhone = req.body.phone;
-	const workerPwd = req.body.pwd;
+	const workerPwd = req.body.password;
+	
     workers.findOne({phone: workerPhone})
 	     .exec((err, workerData) => {
 	         if(err) {
 	         	return res.status(404).json(err)
-	         }
+			 }
+			 console.log(workerData)
+			 if(workerData == null) {
+				return res.status(202).json({"message": "login fault!", "code":"400"});
+			 }
 	         if (workerData.password == workerPwd) {
                 req.session.userInfo = workerData;
                 req.session.userInfo.level = 2;
 				//console.log(req.session.userInfo);
-				return res.status(201).json({"message": "login success!"});
+				return res.status(201).json({"message": "login success!", "code":"200", "userId": workerData._id});
 				
 			 } else {
-				return res.status(404).json({"message": "login fault!"});
+				return res.status(202).json({"message": "login fault!", "code":"400"});
 			 }
 	     });
 };
+
+const workerLogout = function(req, res, next) {
+	req.session.userInfo = null;
+	req.session.level = null
+	return res.status(201).json({"message": "logout success", "code": "200"});
+}
 
 const workerLoginCheck = function(req, res, next) {
 	if (req.session.userInfo) {
@@ -165,5 +176,6 @@ module.exports = {
     updateWorker,
     deleteWorker,
     workerLogin,
-    workerLoginCheck
+	workerLoginCheck,
+	workerLogout
 };

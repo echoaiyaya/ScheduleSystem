@@ -15,4 +15,5 @@ export class CustomerLogin {
 export class checkLogin {
     message: string;
     code: string;
+    userId: string;
 }

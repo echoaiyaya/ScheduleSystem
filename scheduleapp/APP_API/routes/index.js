@@ -6,6 +6,7 @@ const ctrlCustomers = require('../controllers/customers');
 const ctrlAdmins = require('../controllers/admins');
 const ctrlWorkers = require('../controllers/workers');
 const ctrlTimeTables = require('../controllers/timetables');
+const ctrlAppointment = require('../controllers/appointments');
 
 router.route('/admins')
       .get(ctrlAdmins.getAdmins)
@@ -42,6 +43,21 @@ router.route('/customer/login')
       .get(ctrlCustomers.customerLoginCheck)
       .post(ctrlCustomers.customerLogin);
 
+router.route('/customer/logout')
+      .get(ctrlCustomers.customerLogout);
+
+router.route('/customer/comment/:targetId')
+      .post(ctrlCustomers.createComments);
+
+router.route('/customer/comment/:targetId/:commentId')
+      .delete(ctrlCustomers.deleteSingleComment);
+
+router.route('/worker/login')
+      .post(ctrlWorkers.workerLogin);
+
+router.route('/worker/logout')
+      .get(ctrlWorkers.workerLogout);
+
 router.route('/workers')
       .get(ctrlWorkers.getWorkers)
       .post(ctrlWorkers.createWorkers);
@@ -54,6 +70,32 @@ router.route('/workers/:workerId')
 router.route('/timeTables')
       .get(ctrlTimeTables.getTimeTables)
       .post(ctrlTimeTables.createTimeTables);
+
+router.route('/timeTable/times/:timetableId')
+      .post(ctrlTimeTables.createTimes);
+
+router.route('/timeTable/:tid')
+      .get(ctrlTimeTables.getSingleTimeTable)
+      .delete(ctrlTimeTables.deleteTimeTable);
+
+router.route('/timeTables/:cid')
+      .get(ctrlTimeTables.getCategoryTimeTables);
+
+router.route('/timeTables/worker/:workerId')
+      .get(ctrlTimeTables.getTimeTablesById);
+
+router.route('/appointment')
+      .post(ctrlAppointment.createAppointments);
+
+router.route('/appointment/:customerId')
+      .get(ctrlAppointment.getAppointmentsById);
+
+router.route('/appointment/worker/:workerId')
+      .get(ctrlAppointment.getAppointmentsByWid);
+
+router.route('/appointment/:appointmentId')
+      .delete(ctrlAppointment.deleteAppointment);
+
 
 
 module.exports = router;

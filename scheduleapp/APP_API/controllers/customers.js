@@ -21,13 +21,19 @@ const customerLogin = function(req, res, next) {
 				req.session.userInfo = customerData;
 				req.session.userInfo.level = 3;//0 is admin, 1 is group admin, 2 is workers, 3 is customers
 				//console.log(req.session.userInfo);
-				return res.status(201).json({"message": "login success!", "code":"200"});
+				return res.status(201).json({"message": "login success!", "code":"200", "userId": customerData._id});
 				
 			 } else {
 				return res.status(202).json({"message": "login fault!", "code":"400"});
 			 }
 	     });
 };
+
+const customerLogout = function(req, res, next) {
+	req.session.userInfo = null;
+	req.session.level = null
+	return res.status(201).json({"message": "logout success", "code": "200"});
+}
 
 const customerLoginCheck = function(req, res, next) {
 	console.log(req.session.userInfo)
@@ -164,13 +170,21 @@ const createComments = function(req, res, next) {
 		});
 		return;
 	}
+	if (!req.body.customerId) {
+		res
+		.status(404)
+		.json({
+			"message" : "please log in!"
+		});
+		return;
+	}
 	const targetModel = workers;
-	if (req.params.targetType == 2) {
+	if (req.params.targetType == 1) {
 		targetModel = groups;
 	} 
-	targetModel.findById(req.params.targetId)
+	targetModel.findById(req.params.targetId).populate({path: 'comments', populate: {path: 'customerId'}})
 	     .exec((err, targetData) => {
-	     	if (!workerData) {
+	     	if (!targetData) {
 	     		res
 	     		.status(404)
 	     		.json({
@@ -184,22 +198,25 @@ const createComments = function(req, res, next) {
 	     		return;
 	     	}
 	     	comments = {};
-	     	comments.customerId = req.session.userInfo._id;
-	     	comments.content = req.body.content;
-	     	comments.rating = req.body.rating;
-	     	comments.date = req.body.date;
-	     	targetData.comments.push(comments);
-	     	targetData.save((err, targetData) => {
-	     		if (err) {
-	     			res
-	     			.status(404)
-	     			.json(err);
-	     		} else {
-	     			res
-	     			.status(200)
-	     			.json(targetData)
-	     		}
-	     	});
+	     	customers.findById(req.body.customerId)
+			 .exec((err, customerData) => {
+				comments.customerId = customerData;
+				comments.content = req.body.content;
+				comments.rating = req.body.rating;
+				targetData.comments.push(comments);
+				targetData.save((err, targetData) => {
+					if (err) {
+						res
+						.status(404)
+						.json(err);
+					} else {
+						res
+						.status(200)
+						.json(targetData)
+					}
+				});
+			 });
+	     	
 
 	     });
 }
@@ -270,9 +287,6 @@ const updateSingleComment = function(req, res, next) {
 
 const deleteSingleComment = function(req, res, next) {
 	const targetModel = workers;
-	if (req.params.targetType == 2) {
-		targetModel = groups;
-	} 
 	if (!req.params.targetId) {
 		res
 		.status(404)
@@ -281,7 +295,7 @@ const deleteSingleComment = function(req, res, next) {
 		});
 		return;
 	}
-	if (!req.params.commentid) {
+	if (!req.params.commentId) {
 		res
 		.status(404)
 		.json({
@@ -289,6 +303,11 @@ const deleteSingleComment = function(req, res, next) {
 		});
 		return;
 	}
+	if (req.params.targetType == 1) {
+		targetModel = groups;
+	} 
+	
+	
 	targetModel.findById(req.params.targetId)
 	     .exec((err, targetData) => {
 	     	if (!targetData) {
@@ -304,7 +323,7 @@ const deleteSingleComment = function(req, res, next) {
 	     		.json(err);
 	     		return;
 	     	}
-	     	var comment = targetData.comments.id(req.params.commentid);
+	     	var comment = targetData.comments.id(req.params.commentId);
 	     	if (!comment) {
 	     		res
 	     		.status(404)
@@ -342,5 +361,6 @@ module.exports = {
 	customerLoginCheck,
 	createComments,
 	updateSingleComment,
-	deleteSingleComment
+	deleteSingleComment,
+	customerLogout
 };

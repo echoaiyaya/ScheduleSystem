@@ -1,0 +1,71 @@
+<div style="width: 80%;margin: 0 auto;">
+    <h1 style="text-align: center;">Register</h1>
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link" style="cursor: pointer;" (click)="changeSwitch(false)"><span [hidden]="switch == true">-&gt;</span>customers<span [hidden]="switch == true">&lt;-</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="cursor: pointer;" (click)="changeSwitch(true)"><span [hidden]="switch == false" >-&gt;</span>workers<span [hidden]="switch == false">&lt;-</span></a>
+        </li>
+      </ul>
+    <form (ngSubmit)="createNewCustomer(newCustomer)" name="form1" id="form1" *ngIf="switch == false">
+        <div class="form-group">
+            <label for="firstName">firstname</label>
+            <input class="form-control" [(ngModel)]="newCustomer.firstName" id="firstName" name="firstName" required="required">    
+        </div>
+        <div class="form-group">
+            <label for="lastName">lastName</label>
+            <input class="form-control" [(ngModel)]="newCustomer.lastName" id="lastName" name="lastName" required="required">
+        </div>
+        <div class="form-group">
+            <label for="phone">phone</label>
+            <input class="form-control" [(ngModel)]="newCustomer.phone" id="phone" name="phone" required="required">
+        </div>
+        <div class="form-group">
+            <label for="email">email</label>
+            <input class="form-control" [(ngModel)]="newCustomer.email" id="email" name="email" type="email" required="required">
+        </div>
+        <div class="form-group">
+            <label for="password">password</label>
+            <input class="form-control" [(ngModel)]="newCustomer.password" id="password" name="password" type="password" required="required">
+        </div>
+        
+        
+        
+        
+        <button class="btn btn-primary" type="submit">Create</button>
+    </form>
+    <form (ngSubmit)="createNewWorker(newWorker)" name="form2" id="form2" *ngIf="switch == true">
+        <div class="form-group">
+            <label for="wfirstName">firstname</label>
+            <input class="form-control" [(ngModel)]="newWorker.firstName" id="wfirstName" name="firstName" required="required">    
+        </div>
+        <div class="form-group">
+            <label for="wlastName">lastName</label>
+            <input class="form-control" [(ngModel)]="newWorker.lastName" id="wlastName" name="lastName" required="required">
+        </div>
+        <div class="form-group">
+            <label for="wphone">phone</label>
+            <input class="form-control" [(ngModel)]="newWorker.phone" id="wphone" name="phone" required="required">
+        </div>
+        <div class="form-group">
+            <label for="wemail">email</label>
+            <input class="form-control" [(ngModel)]="newWorker.email" id="wemail" name="email" type="email" required="required">
+        </div>
+        <div class="form-group">
+            <label for="wpassword">password</label>
+            <input class="form-control" [(ngModel)]="newWorker.password" id="wpassword" name="password" type="password" required="required">
+        </div>
+        <div class="form-group">
+            <label for="wdescription">description</label>
+            <input class="form-control" [(ngModel)]="newWorker.description" id="wdescription" name="description" type="text" required="required">
+        </div>
+        <div class="form-group">
+            <label for="category">Your job type</label>
+            <select class="form-select form-control" [(ngModel)]="newWorker.categoryId" name="categoryId" aria-label="Default select example">
+                <option *ngFor="let category of categories;" value="{{category._id}}">{{category.title}}</option>
+            </select>
+        </div>
+        <button class="btn btn-primary" type="submit">Create</button>
+    </form>
+</div>

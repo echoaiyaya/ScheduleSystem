@@ -1,0 +1,42 @@
+<div style="width: 80%;margin: 0 auto;">
+    <h1 style="text-align:center;">Worker Information</h1>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">WorkerName: {{ timeTable.workerId.firstName }} {{ timeTable.workerId.lastName }}</h5>
+            <h5 class="card-title">job type: {{ timeTable.workerId.category.title }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Company: {{ timeTable.workerId.gourpId }}</h6>
+            <p class="card-text">Description: {{ timeTable.workerId.description }}</p>
+            <h6 class="card-subtitle mb-2 text-muted">Phone: {{ timeTable.workerId.phone }}</h6>
+            <h6 class="card-subtitle mb-2 text-muted">Email: {{ timeTable.workerId.email }}</h6>
+            <h6 class="card-subtitle mb-2 text-muted">available: {{ timeTable.workerId.avaliable }}</h6>
+        </div>
+    </div>
+    
+    <!-- <a class="btn btn-primary" routerLink="/update/{{pageContent.id}}">Update</a>
+    <a class="btn btn-danger" style="cursor: pointer;" (click)="deleteFunc(pageContent.id)">Delete</a> -->
+    
+    <div class="card">
+        <div class="card-body">
+            <h1 style="text-align: center;">Available Schedule</h1>
+            <h5 class="card-text">Year:{{timeTable.year}} Month: {{ timeTable.month }} Date: {{timeTable.date}}</h5>
+            <ul class="list-unstyled">
+                <li style="margin-bottom: 1em;" *ngFor="let time of timeTable.times;">
+                    <div class="card">
+                        <div class="card-body">
+                            
+                            
+                                
+                            <p class="card-text">From:{{time.startHour}}:{{time.startMin}} to {{time.endHour}}:{{time.endMin}}</p>
+                           
+                            <hr>
+                            <a class="btn btn-success card-link" (click)="createAppoint(timeTable.workerId._id, time._id, timeTable._id);">Book an appoinment</a>
+                           
+                        </div>
+                    </div>
+                </li>
+            </ul>
+           
+            
+        </div>
+    </div>
+</div>
